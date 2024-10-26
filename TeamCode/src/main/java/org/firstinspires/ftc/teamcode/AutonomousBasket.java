@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @Autonomous
-public class Observation extends LinearOpMode {
+public class AutonomousBasket extends LinearOpMode {
     DcMotor RFMotor; // Right Front motor
     DcMotor LFMotor; // Left Front motor
     DcMotor RBMotor; // Right Back motor
@@ -21,11 +21,10 @@ public class Observation extends LinearOpMode {
         RBMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         waitForStart();
         while(opModeIsActive() && !isStopRequested()){
-            LFMotor.setPower(-0.25);
-            RFMotor.setPower(-0.25);
-            LBMotor.setPower(-0.25);
-
-            RBMotor.setPower(-0.25);
+            LFMotor.setPower(0.25);
+            RFMotor.setPower(0.25);
+            LBMotor.setPower(0.25);
+            RBMotor.setPower(0.25);
             Thread.sleep(500);
             LFMotor.setPower(0);
             RFMotor.setPower(0);

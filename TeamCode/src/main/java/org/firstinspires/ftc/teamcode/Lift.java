@@ -6,19 +6,20 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 @TeleOp
 public class Lift extends LinearOpMode {
-    DcMotor motor;
-    DcMotor motor1;
+    DcMotor motorUp;
+    DcMotor motorDown;
     public void LiftFunc(){
         double power = gamepad1.right_stick_y;
-        motor.setPower(power/2);
-        motor1.setPower(-power/2);
+        double powerDivisor = 2;
+        motorUp.setPower(power/powerDivisor);
+        motorDown.setPower(-power/powerDivisor);
     }
     @Override
     public void runOpMode(){
-        motor = hardwareMap.get(DcMotor.class, "lift1");
-        motor1 = hardwareMap.get(DcMotor.class, "lift2");
+        motorUp = hardwareMap.get(DcMotor.class, "lift1");
+        motorDown = hardwareMap.get(DcMotor.class, "lift2");
         waitForStart();
-        while(!isStopRequested() && opModeIsActive()){
+        while(opModeIsActive() && !isStopRequested()){
             LiftFunc();
             telemetry.addData("motor", motor.getPower());
             telemetry.update();
