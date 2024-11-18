@@ -34,6 +34,7 @@ public class MyHardware {
         liftMotor1 = hwMap.get(DcMotor.class, "lift2");
         IntakeA = hwMap.get(Servo.class, "inArm");
         claw = hwMap.get(Servo.class, "Claw");
+        intakeWheel = hwMap.get(CRServo.class, "CR 1");
         RFMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         RBMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         this.stopDriving();
