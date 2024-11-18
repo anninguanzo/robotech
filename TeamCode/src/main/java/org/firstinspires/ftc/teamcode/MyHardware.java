@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -21,6 +22,7 @@ public class MyHardware {
     DcMotor liftMotor1 = null;
     ElapsedTime period = new ElapsedTime();
     Servo claw, IntakeA;
+    CRServo intakeWheel;
     public MyHardware(){}
     public void init(HardwareMap ahwMap){
         hwMap = ahwMap;
@@ -134,6 +136,21 @@ public class MyHardware {
         while(opMode.opModeIsActive()){
             telemetry.addData("Status", "Yes");
         }
+    }
+    public void IntakeArmUp(LinearOpMode opMode, Telemetry telemetry){
+        IntakeA.setPosition(0);
+        while(opMode.opModeIsActive()){
+            telemetry.addData("Status", "Yes");
+        }
+    }
+    public void IntakeArmWheelStop(){
+        intakeWheel.setPower(0);
+    }
+    public void IntakeArmWheelRight(){
+        intakeWheel.setPower(1);
+    }
+    public void IntakeArmWheelLeft(){
+        intakeWheel.setPower(-1);
     }
 }
 /*

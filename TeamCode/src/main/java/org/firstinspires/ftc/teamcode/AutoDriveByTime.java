@@ -10,23 +10,52 @@ public class AutoDriveByTime extends LinearOpMode {
     ElapsedTime runTime = new ElapsedTime();
     @Override
     public void runOpMode(){
+        /*
+        Summary of Auton code
+        1) Hang specimen
+        2) Get sample and basket it once because of time
+        3) Go to the zone where we always went in the end of TeleOp(Idk what it was called)
+         */
         robot.init(hardwareMap);
         telemetry.addData("Status", "Ready to run");
         telemetry.update();
         waitForStart();
-//        robot.SidewaysLeft(.25f, .5f, telemetry, this);
-//        robot.stopDriving();
-//        robot.driveStraight(.25f, .6f, telemetry, this);
-//        robot.stopDriving();
+        //Specimen Hanging
+        robot.SidewaysLeft(.25f, .5f, telemetry, this);
+        robot.stopDriving();
+        robot.driveStraight(.25f, .6f, telemetry, this);
+        robot.stopDriving();
         robot.IntakeArmDown(this, telemetry);
         robot.Lift(2f, 2f, telemetry, this);
         robot.stopLift();
-        sleep(1000);
-        robot.driveStraight(.25f, 0.25f, telemetry, this);
-        robot.stopDriving();
-        robot.Lift(-0.75f, 2, telemetry, this);
+        robot.Lift(-2f, 2, telemetry, this);
         robot.stopLift();
+        //Specimen done, getting ready for intake & basket
         robot.SpecimenClawOpen();
+        robot.driveStraight(-.25f, .5f, telemetry, this);
+        robot.SpecimenClawClose();
+        robot.Lift(-.5f, 1f, telemetry, this);
+        robot.stopLift();
+        robot.IntakeArmUp(this, telemetry);
+        //Moving towards samples
+        robot.SidewaysRight(.25f, .6f, telemetry, this);
+        robot.driveStraight(.25f, .5f, telemetry, this);
+        robot.RotationRight(.25f, 1f, telemetry, this);
+        robot.IntakeArmDown(this, telemetry);
+        for(int i = 0; i<5; i++){robot.IntakeArmWheelRight();}
+        robot.IntakeArmWheelStop();
+        robot.IntakeArmUp(this, telemetry);
+        robot.driveStraight(.25f, .5f, telemetry, this);
+        robot.RotationRight(.25f, .5f, telemetry, this);
+        robot.driveStraight(.25f, 2f, telemetry, this);
+        robot.Lift(2f, 3f, telemetry, this);
+        robot.stopLift();
+        robot.IntakeArmDown(this, telemetry);
+        for(int i = 0; i<5; i++){robot.IntakeArmWheelRight();}
+        //Going to ending place
+        robot.driveStraight(-.25f, .8f, telemetry, this);
+        robot.RotationLeft(.25f, .5f, telemetry, this);
+        robot.driveStraight(.25f, .5f, telemetry, this);
         telemetry.addData("Path", "Complete");
         telemetry.update();
         sleep(1000);

@@ -27,10 +27,10 @@ public class Movement extends LinearOpMode {
         double power = Math.hypot(x, y);
         double sin = Math.sin(theta - Math.PI/4), cos = Math.cos(theta - Math.PI/4);
         double max = Math.max(Math.abs(sin), Math.abs(cos));
-        LFMotor.setPower((power * cos/max + turn)/2);
-        RFMotor.setPower((power * sin/max - turn)/2);
-        LBMotor.setPower((power * sin/max + turn)/2);
-        RBMotor.setPower((power * cos/max - turn)/2);
+        LFMotor.setPower((power * cos/max + turn));
+        RFMotor.setPower((power * sin/max - turn));
+        LBMotor.setPower((power * sin/max + turn));
+        RBMotor.setPower((power * cos/max - turn));
         if((power + Math.abs(turn)) > 1){
             LFMotor.setPower(LFMotor.getPower() / (power+turn));
             RFMotor.setPower(RFMotor.getPower() / (power+turn));
@@ -38,10 +38,10 @@ public class Movement extends LinearOpMode {
             LBMotor.setPower(LBMotor.getPower() / (power+turn));
         }
         if(gamepad1.b){
-            LFMotor.setPower(power * cos/max + turn);
-            RFMotor.setPower(power * sin/max - turn);
-            LBMotor.setPower(power * sin/max + turn);
-            RBMotor.setPower(power * cos/max - turn);
+            LFMotor.setPower((power * cos/max + turn)*2);
+            RFMotor.setPower((power * sin/max - turn)*2);
+            LBMotor.setPower((power * sin/max + turn)*2);
+            RBMotor.setPower((power * cos/max - turn)*2);
         }
         telemetry.addData("LFMotor Power", LFMotor.getPower());
         telemetry.addData("RFMotor Power", RFMotor.getPower());
