@@ -114,10 +114,12 @@ public class MyHardware {
         }
     }
     public void LiftUp(double power, float seconds, Telemetry telemetry, LinearOpMode opMode){
-        liftMotor.setPower(-power);
+        //updated order to match tele-op
         liftMotor1.setPower(power);
+        liftMotor.setPower(-power); 
 //        +
 //
+//AMOGH - should update this to create ElapsedTime once instead of each time func is called
         ElapsedTime runTime = new ElapsedTime();
         runTime.reset();
         while(opMode.opModeIsActive() && (runTime.seconds() < seconds)){
