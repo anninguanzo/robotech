@@ -21,41 +21,37 @@ public class AutoDriveByTime extends LinearOpMode {
         telemetry.update();
         waitForStart();
         //Specimen Hanging
-        robot.SidewaysLeft(.25f, .5f, telemetry, this);
+        robot.LiftUp(1f, 2, telemetry, this);
+        robot.SidewaysLeft(.25f, .6f, telemetry, this);
         robot.stopDriving();
         robot.driveStraight(.25f, .6f, telemetry, this);
         robot.stopDriving();
-        robot.IntakeArmDown(this, telemetry);
-        robot.Lift(2f, 2f, telemetry, this);
-        robot.stopLift();
-        robot.Lift(-2f, 2, telemetry, this);
-        robot.stopLift();
+        robot.IntakeArmUp(this, telemetry);
+        robot.LiftDown(1f, 2, telemetry, this);
         //Specimen done, getting ready for intake & basket
-        robot.SpecimenClawOpen();
-        robot.driveStraight(-.25f, .5f, telemetry, this);
-        robot.SpecimenClawClose();
-        robot.Lift(-.5f, 1f, telemetry, this);
-        robot.stopLift();
-        robot.IntakeArmUp(this, telemetry);
-        //Moving towards samples
-        robot.SidewaysRight(.25f, .6f, telemetry, this);
-        robot.driveStraight(.25f, .5f, telemetry, this);
-        robot.RotationRight(.25f, 1f, telemetry, this);
-        robot.IntakeArmDown(this, telemetry);
-        for(int i = 0; i<5; i++){robot.IntakeArmWheelRight();}
-        robot.IntakeArmWheelStop();
-        robot.IntakeArmUp(this, telemetry);
-        robot.driveStraight(.25f, .5f, telemetry, this);
-        robot.RotationRight(.25f, .5f, telemetry, this);
-        robot.driveStraight(.25f, 2f, telemetry, this);
-        robot.Lift(2f, 3f, telemetry, this);
-        robot.stopLift();
-        robot.IntakeArmDown(this, telemetry);
-        for(int i = 0; i<5; i++){robot.IntakeArmWheelRight();}
-        //Going to ending place
-        robot.driveStraight(-.25f, .8f, telemetry, this);
-        robot.RotationLeft(.25f, .5f, telemetry, this);
-        robot.driveStraight(.25f, .5f, telemetry, this);
+//        robot.SpecimenClawOpen();
+//        robot.driveStraight(-.25f, .5f, telemetry, this);
+//        robot.SpecimenClawClose();
+//        robot.Lift(-.5f, 1f, telemetry, this);
+//        robot.IntakeArmDown(this, telemetry);
+//        //Moving towards samples
+//        robot.SidewaysRight(.25f, .6f, telemetry, this);
+//        robot.driveStraight(.25f, .5f, telemetry, this);
+//        robot.RotationRight(.25f, 1f, telemetry, this);
+//        robot.IntakeArmDown(this, telemetry);
+//        for(int i = 0; i<5; i++){robot.IntakeArmWheelRight();}
+//        robot.IntakeArmWheelStop();
+//        robot.IntakeArmUp(this, telemetry);
+//        robot.driveStraight(.25f, .5f, telemetry, this);
+//        robot.RotationRight(.25f, .5f, telemetry, this);
+//        robot.driveStraight(.25f, 2f, telemetry, this);
+//        robot.Lift(2f, 3f, telemetry, this);
+//        robot.IntakeArmDown(this, telemetry);
+//        for(int i = 0; i<5; i++){robot.IntakeArmWheelRight();}
+//        //Going to ending place
+//        robot.driveStraight(-.25f, .8f, telemetry, this);
+//        robot.RotationLeft(.25f, .5f, telemetry, this);
+//        robot.driveStraight(.25f, .5f, telemetry, this);
         telemetry.addData("Path", "Complete");
         telemetry.update();
         sleep(1000);

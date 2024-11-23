@@ -113,12 +113,23 @@ public class MyHardware {
             telemetry.update();
         }
     }
-    public void Lift(double power, float seconds, Telemetry telemetry, LinearOpMode opMode){
+    public void LiftUp(double power, float seconds, Telemetry telemetry, LinearOpMode opMode){
         liftMotor.setPower(-power);
         liftMotor1.setPower(power);
 //        +
-        liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        liftMotor1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//
+        ElapsedTime runTime = new ElapsedTime();
+        runTime.reset();
+        while(opMode.opModeIsActive() && (runTime.seconds() < seconds)){
+            telemetry.addData("Path", "Lift: %2.5f S Elapsed", runTime.seconds());
+            telemetry.update();
+        }
+    }
+    public void LiftDown(double power, float seconds, Telemetry telemetry, LinearOpMode opMode){
+        liftMotor.setPower(power);
+        liftMotor1.setPower(-power);
+//        +
+//
         ElapsedTime runTime = new ElapsedTime();
         runTime.reset();
         while(opMode.opModeIsActive() && (runTime.seconds() < seconds)){
