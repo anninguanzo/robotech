@@ -2,11 +2,11 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.TouchSensor;
 
 @TeleOp(name = "Movement1")
 public class Movement extends LinearOpMode {
@@ -19,6 +19,8 @@ public class Movement extends LinearOpMode {
     DcMotor LBMotor; // Left Back motor
     CRServo Arm;
     Servo IntakeA;
+    DigitalChannel touchSensor;
+
     public void motorDriveTrain(){
         double x = gamepad1.left_stick_y;
         double y = gamepad1.left_stick_x;
@@ -27,10 +29,10 @@ public class Movement extends LinearOpMode {
         double power = Math.hypot(x, y);
         double sin = Math.sin(theta - Math.PI/4), cos = Math.cos(theta - Math.PI/4);
         double max = Math.max(Math.abs(sin), Math.abs(cos));
-        LFMotor.setPower((power * cos/max + turn));
-        RFMotor.setPower((power * sin/max - turn));
-        LBMotor.setPower((power * sin/max + turn));
-        RBMotor.setPower((power * cos/max - turn));
+        LFMotor.setPower((power * cos/max + turn)/2);
+        RFMotor.setPower((power * sin/max - turn)/2);
+        LBMotor.setPower((power * sin/max + turn)/2);
+        RBMotor.setPower((power * cos/max - turn)/2);
         if((power + Math.abs(turn)) > 1){
             LFMotor.setPower(LFMotor.getPower() / (power+turn));
             RFMotor.setPower(RFMotor.getPower() / (power+turn));
@@ -38,10 +40,10 @@ public class Movement extends LinearOpMode {
             LBMotor.setPower(LBMotor.getPower() / (power+turn));
         }
         if(gamepad1.b){
-            LFMotor.setPower((power * cos/max + turn)*2);
-            RFMotor.setPower((power * sin/max - turn)*2);
-            LBMotor.setPower((power * sin/max + turn)*2);
-            RBMotor.setPower((power * cos/max - turn)*2);
+            LFMotor.setPower((power * cos/max + turn));
+            RFMotor.setPower((power * sin/max - turn));
+            LBMotor.setPower((power * sin/max + turn));
+            RBMotor.setPower((power * cos/max - turn));
         }
         telemetry.addData("LFMotor Power", LFMotor.getPower());
         telemetry.addData("RFMotor Power", RFMotor.getPower());
@@ -61,9 +63,6 @@ public class Movement extends LinearOpMode {
             telemetry.addData("Status", "Yes1");
         }
     }
-
-
-    TouchSensor touchSensor;
 
     public void LiftFunc(){
         double power = gamepad2.right_stick_y;
@@ -114,16 +113,36 @@ public class Movement extends LinearOpMode {
         servo = hardwareMap.get(Servo.class, "Claw");
         motor = hardwareMap.get(DcMotor.class, "lift1");
         motor1 = hardwareMap.get(DcMotor.class, "lift2");
-        touchSensor = hardwareMap.get(TouchSensor.class, "TouchSensor");
+        touchSensor = hardwareMap.get(DigitalChannel.class, "TouchSensor");
         Arm = hardwareMap.get(CRServo.class, "CR 1");
         IntakeA = hardwareMap.get(Servo.class, "inArm");
+        touchSensor.setMode(DigitalChannel.Mode.INPUT);
+
         waitForStart();
         while(!isStopRequested() && opModeIsActive()){
             motorDriveTrain();
             Claw();
             Intake();
             IntakeArm();
-            if(!touchSensor.isPressed()) LiftFunc();
+//            if(!touchSensor.getState()) LiftFunc();
+
+//            if (!touchSensor.getState()) {
+//                // button is pressed.
+//                telemetry.addData("Button", "PRESSED");
+//            } else{
+//                // button is not pressed.
+//                telemetry.addData("Button", "NOT PRESSED");
+//            }
+
+            if(touchSensor.getState()){
+                //not touching
+                 telemetry.addData("Button", "NOT PRESSED");
+
+            }
+
+            else{
+                telemetry.addData("Button", "PRESSED");
+            } //touching
             telemetry.addData("Something", "Initialized");
             telemetry.update();
         }

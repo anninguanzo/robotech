@@ -21,15 +21,13 @@ public class AutoDriveByTime extends LinearOpMode {
         telemetry.update();
         waitForStart();
         //Specimen Hanging
-        robot.AutoLiftFunc(1f, 2f, telemetry, this);
-        robot.stopLift();
+        robot.LiftUp(1f, 2, telemetry, this);
         robot.SidewaysLeft(.25f, .6f, telemetry, this);
         robot.stopDriving();
         robot.driveStraight(.25f, .6f, telemetry, this);
         robot.stopDriving();
         robot.IntakeArmUp(this, telemetry);
-        robot.AutoLiftFunc(-1f, 2f, telemetry, this);
-        robot.stopLift();
+        robot.LiftDown(1f, 2, telemetry, this);
         //Specimen done, getting ready for intake & basket
 //        robot.SpecimenClawOpen();
 //        robot.driveStraight(-.25f, .5f, telemetry, this);

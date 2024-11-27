@@ -89,7 +89,7 @@ public class Calibration extends LinearOpMode {
     void resetOdometryEncoders(){
         leftEncoder.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightEncoder.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        middleEncoder.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        middle Encoder.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftEncoder.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightEncoder.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         middleEncoder.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
