@@ -16,7 +16,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class SpecimenAutonTeamBlue extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException{
-        MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(12, -30, Math.toRadians(-90)));
+        MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(-12, -30, Math.toRadians(-90)));
         DcMotor liftMotor, liftMotor1;
         liftMotor = hardwareMap.get(DcMotor.class, "lift1");
         liftMotor1 = hardwareMap.get(DcMotor.class, "lift2");
@@ -31,9 +31,9 @@ public class SpecimenAutonTeamBlue extends LinearOpMode {
          */
         //I believe one tile on the grid is 12 in by 12 in. Double check with measuring tape.
         Actions.runBlocking(
-                drive.actionBuilder(new Pose2d(12,-30,Math.toRadians(-90)))
+                drive.actionBuilder(new Pose2d(-12,-30,Math.toRadians(-90)))
                         //Hanging Specimen #1
-                        .lineToX(0)
+                        .strafeTo(new Vector2d(0, -30))
                         .lineToY(-13)
                         .stopAndAdd(new LiftActionBlue(liftMotor, liftMotor1, 2, 2))
                         .stopAndAdd(new LiftActionBlue(liftMotor, liftMotor1, -2, 2))
