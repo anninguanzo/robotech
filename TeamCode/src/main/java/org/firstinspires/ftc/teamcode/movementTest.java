@@ -4,16 +4,15 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
-@TeleOp(name = "Movement1")
-public class movement extends LinearOpMode {
+@TeleOp(name = "PIDTest")
+public class movementTest extends LinearOpMode {
 
-    DcMotor lift1; // ultraplanatary motor
-    DcMotor lift2; // ultraplanatary motor
-    DcMotor top1; // core hex motor
-    DcMotor top2; // core hex motor
+    DcMotorEx motor;
+    DcMotorEx motor1;
     DcMotor RFMotor; // Right Front motor
     DcMotor LFMotor; // Left Front motor
     DcMotor RBMotor; // Right Back motor
@@ -56,14 +55,25 @@ public class movement extends LinearOpMode {
 
     public void LiftFunc() {
         double power = gamepad2.left_stick_y;
-        telemetry.addData("lift power", lift1.getPower());
-        telemetry.addData("lift power", lift2.getPower());
 
-        lift1.setPower(power);
-        lift2.setPower(-power);
-    
-        top1.setPower(power);
-        top2.setPower(-power);;
+        telemetry.addData("lift power", motor.getPower());
+        telemetry.addData("lift power", motor1.getPower());
+
+        //  motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        int position = motor.getCurrentPosition();
+/*
+        if (position < 50) {
+            motor.setPower(0.1);
+            motor1.setPower(-0.1);
+        }*/
+
+
+        motor.setPower(power);
+        motor1.setPower(-power);
+
+
+
     }
     public void Claw () {
         if (gamepad2.right_bumper) {
@@ -106,12 +116,8 @@ public class movement extends LinearOpMode {
         leftWrist = hardwareMap.get(Servo.class, "leftWrist");
         rightWrist = hardwareMap.get(Servo.class, "rightWrist");
 
-        lift1 = hardwareMap.get(DcMotor.class, "lift1");
-        lift2 = hardwareMap.get(DcMotor.class, "lift2");
-
-        top1 = hardwareMap.get(DcMotor.class, "top1");
-        top2 = hardwareMap.get(DcMotor.class, "top2");
-
+        motor = hardwareMap.get(DcMotorEx.class, "lift1");
+        motor1 = hardwareMap.get(DcMotorEx.class, "lift2");
         waitForStart();
         while(!isStopRequested() && opModeIsActive()){
             motorDriveTrain();

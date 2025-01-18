@@ -17,7 +17,6 @@ public class robot extends LinearOpMode {
         waitForStart();
         while(!isStopRequested() && opModeIsActive()){
             driveTrain.motorDriveTrain();
-            if(!lift.touchSensor.isPressed()) lift.LiftFunc();
             specimenClaw.Claw();
         }
     }
