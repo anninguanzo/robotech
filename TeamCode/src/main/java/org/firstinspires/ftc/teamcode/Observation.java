@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
+@Autonomous
 public class Observation extends LinearOpMode {
     DcMotor LFMotor;
     DcMotor RFMotor;
